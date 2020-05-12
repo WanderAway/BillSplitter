@@ -76,10 +76,11 @@ vector<string> splitter::get_people() const{
 
 
 void splitter::add_bill(bill b){
-  people[b.payee].credit += b.amount;
 
   int debtors = b.debtor.size();
-  float debt = b.amount / debtors;
+  float debt = b.amount / (debtors + 1);
+
+  people[b.payee].credit += debt * debtors;
 
   for (auto p : b.debtor)
     people[p].credit -= debt;
